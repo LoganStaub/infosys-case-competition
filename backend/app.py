@@ -1,5 +1,6 @@
 from flask import Flask
 from routes.page_routes import page_bp
+from routes.chatbot_routes import chatbot_bp
 
 def create_app():
     app = Flask(
@@ -9,6 +10,7 @@ def create_app():
         static_url_path="/static",
     )
     app.register_blueprint(page_bp)
+    app.register_blueprint(chatbot_bp)
     return app
 
 if __name__ == "__main__":

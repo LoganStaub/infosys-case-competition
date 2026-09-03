@@ -2,3 +2,7 @@ flask
 flask-cors
 groq
 python-dotenv
+
+# Added for interview-prep chatbot: resume file parsing
+pypdf
+python-docx

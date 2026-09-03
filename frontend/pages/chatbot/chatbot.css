@@ -1,0 +1,294 @@
+/* --- Design tokens ---------------------------------------------------
+   Ink navy for text, a cool pale background (not the default warm
+   cream), deep teal as the primary accent, warm brass as a secondary
+   accent for small highlights. Fraunces for the headline, IBM Plex
+   Sans for everything else.
+
+   Scoped to .app rather than body/*, since body/main already have base
+   rules in shared/styles/base.css. */
+
+.app {
+  --ink: #1B2430;
+  --ink-soft: #4B5768;
+  --bg: #EEF1F4;
+  --surface: #FFFFFF;
+  --border: #D7DDE3;
+  --teal: #2F6F6B;
+  --teal-dark: #234F4C;
+  --teal-tint: #DCEEEC;
+  --gold: #C99A44;
+  --radius: 10px;
+
+  max-width: 720px;
+  margin: 0 auto;
+  min-height: calc(100vh - 6rem); /* accounts for shared main's 2rem padding + nav */
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  line-height: 1.5;
+  border-radius: var(--radius);
+  padding: 0 8px;
+}
+
+.app * { box-sizing: border-box; }
+
+/* --- Top bar --- */
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 20px 4px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar__title {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.topbar__track {
+  font-size: 0.85rem;
+  color: var(--teal-dark);
+  background: var(--teal-tint);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+/* --- Setup panel --- */
+
+.setup {
+  padding: 48px 4px;
+}
+
+.setup h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 2rem;
+  max-width: 20ch;
+  margin: 0 0 12px;
+}
+
+.setup__sub {
+  color: var(--ink-soft);
+  max-width: 55ch;
+  margin: 0 0 28px;
+}
+
+.field-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+#careerSelect {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.btn {
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn--primary {
+  background: var(--teal);
+  color: white;
+}
+
+.btn--primary:hover { background: var(--teal-dark); }
+
+.btn--secondary {
+  background: transparent;
+  color: var(--teal-dark);
+  border: 1px solid var(--border);
+}
+
+.btn--secondary:hover { background: var(--teal-tint); }
+
+.setup__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+#resumeInput {
+  display: block;
+  margin-bottom: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+#careerInput {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.status-note {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 8px 0 0;
+}
+
+.status-note--error {
+  color: #8A3F3A;
+}
+
+/* --- Timer bar --- */
+
+.timer-bar {
+  position: relative;
+  height: 26px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.timer-bar__fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: var(--teal-tint);
+  transition: width 1s linear;
+}
+
+.timer-bar--expired .timer-bar__fill {
+  background: #F3C9C6;
+}
+
+.timer-bar__label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--teal-dark);
+}
+
+.timer-bar--expired .timer-bar__label {
+  color: #8A3F3A;
+}
+
+/* --- Chat panel --- */
+
+.chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 4px 24px;
+  min-height: 0;
+}
+
+.transcript {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 4px 2px 16px;
+}
+
+.msg {
+  max-width: 65ch;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 0.97rem;
+  white-space: pre-line; /* so the AI's line breaks between Feedback /
+                             Stronger response / next question actually show */
+}
+
+.msg--coach {
+  align-self: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.msg--feedback {
+  border-left: 3px solid var(--gold);
+}
+
+.msg--question {
+  font-weight: 500;
+}
+
+.msg--student {
+  align-self: flex-end;
+  background: var(--teal-tint);
+  color: var(--teal-dark);
+}
+
+.msg--pending {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.msg--error {
+  background: #FBEAE9;
+  border: 1px solid #E7B8B4;
+  color: #8A3F3A;
+}
+
+.composer {
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+}
+
+.composer textarea {
+  flex: 1;
+  resize: none;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.composer textarea:read-only {
+  background: #F3EDE0;
+  border-color: var(--gold);
+}
+
+.composer textarea:focus,
+#careerSelect:focus,
+.btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+@media (max-width: 480px) {
+  .setup h1 { font-size: 1.6rem; }
+}

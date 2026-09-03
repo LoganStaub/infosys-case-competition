@@ -1,0 +1,59 @@
+{% extends "shared/base.html" %}
+{% block title %}Mock Interview Coach{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='pages/chatbot/chatbot.css') }}">
+{% endblock %}
+{% block content %}
+  <div class="app">
+
+    <div class="topbar">
+      <div class="topbar__title">Mock Interview Coach</div>
+      <div class="topbar__track" id="trackLabel" hidden></div>
+    </div>
+
+    <!-- Step 1: resume upload (optional) -->
+    <section class="setup" id="resumePanel">
+      <h1>Practice the interview before it counts.</h1>
+      <p class="setup__sub">Upload your resume and the coach will figure out what role to interview you for — or skip this and enter it yourself.</p>
+
+      <label class="field-label" for="resumeInput">Resume (PDF or Word)</label>
+      <input type="file" id="resumeInput" accept=".pdf,.docx">
+      <div id="resumeStatus" class="status-note" hidden></div>
+
+      <div class="setup__actions">
+        <button id="analyzeBtn" class="btn btn--primary">Analyze resume</button>
+        <button id="skipResumeBtn" class="btn btn--secondary">Skip — I'll enter it myself</button>
+      </div>
+    </section>
+
+    <!-- Step 2: confirm/enter the target career -->
+    <section class="setup" id="confirmPanel" hidden>
+      <h1 id="confirmHeading">What role are you targeting?</h1>
+      <p class="setup__sub" id="confirmSub">Confirm or edit the role below before we start.</p>
+
+      <label class="field-label" for="careerInput">Career track</label>
+      <input type="text" id="careerInput" placeholder="e.g. Data Analyst">
+
+      <button id="startBtn" class="btn btn--primary">Start mock interview</button>
+    </section>
+
+    <!-- Step 3: the interview itself -->
+    <section class="chat" id="chatPanel" hidden>
+      <div class="timer-bar" id="timerBar" hidden>
+        <div class="timer-bar__fill" id="timerFill"></div>
+        <div class="timer-bar__label" id="timerLabel"></div>
+      </div>
+
+      <div class="transcript" id="transcript"></div>
+
+      <form class="composer" id="composerForm">
+        <textarea id="composerInput" placeholder="Type your answer…" rows="1" required></textarea>
+        <button type="submit" class="btn btn--primary">Send</button>
+      </form>
+    </section>
+
+  </div>
+{% endblock %}
+{% block extra_js %}
+  <script src="{{ url_for('static', filename='pages/chatbot/chatbot.js') }}"></script>
+{% endblock %}
