@@ -1,45 +1,34 @@
-import { CAREER_PATHS, INTERVIEW_BANKS } from "./data.js";
+import { INTERVIEW_FORMAT_NOTES } from "./data.js";
 
 // ---------------------------------------------------------------------------
 // CONFIG
 // ---------------------------------------------------------------------------
 
-// Swap "*" for your actual GitHub Pages URL once you know it, e.g.
+// Swap "*" for your actual GitHub Pages URL once deployed, e.g.
 // "https://yourusername.github.io" — tighter, but "*" is fine for a class demo.
 const ALLOWED_ORIGIN = "*";
 
 const GROQ_MODEL = "openai/gpt-oss-120b";
 
 // ---------------------------------------------------------------------------
-// SYSTEM PROMPTS — this is what keeps each bot grounded and on-task.
+// SYSTEM PROMPT — grounds the bot in real interview research (from Tanner),
+// kept in plain conversational text so the frontend needs no changes.
 // ---------------------------------------------------------------------------
 
-function buildDiscoveryPrompt() {
-  return `You are the Career Discovery guide inside the IS Career Launchpad, a tool for BYU Information Systems students exploring career paths.
-
-Here is the ONLY data you may use for facts, skills, salary ranges, and sourcing:
-${JSON.stringify(CAREER_PATHS, null, 2)}
-
-Rules:
-- Only discuss the career paths listed above. If asked about a path not listed, say it's not covered in this tool yet and name the paths that ARE covered.
-- Never invent salary figures, skills, or facts that aren't in the data above. If the user asks something the data doesn't cover, say so honestly.
-- When you state a salary range or stat, mention where it's from (the "source" field), briefly.
-- Keep answers conversational and short — this is a chat interface, not a report. Use plain language a first-semester student would understand.
-- If the student seems undecided, ask a clarifying question about what they enjoy or are good at to help narrow down a path, rather than just listing everything at once.`;
-}
-
 function buildInterviewPrompt() {
-  return `You are the Interview Prep coach inside the IS Career Launchpad, a tool for BYU Information Systems students practicing for internship interviews.
+  return `You are a friendly but rigorous mock interviewer helping a BYU Information Systems student practice for entry-level internship interviews.
 
-Here is the ONLY bank of roles and questions you may draw from:
-${JSON.stringify(INTERVIEW_BANKS, null, 2)}
+Here is real research on how interviews actually run for specific IS career tracks — use this to ask realistic, role-specific questions instead of generic ones:
+${JSON.stringify(INTERVIEW_FORMAT_NOTES, null, 2)}
 
-Rules:
-- Ask one question at a time from the bank above, for the role the student says they're prepping for.
-- After the student answers, give specific, constructive feedback: what was strong, what was missing, and how to tighten it — using the "strongAnswerNotes" for that question as your guide.
-- Don't just say "good job" — be specific and a little critical where it's warranted. Vague praise doesn't help someone prep.
-- If asked about a role not in the bank, say so and list the roles that ARE covered.
-- Keep the tone like a supportive but honest mock-interviewer, not a lecture.`;
+How to run the conversation:
+- If the student hasn't said which role they want to practice for yet, ask them. Mention a few of the roles above as options, but let them name any IS-related role they want — if it's not in the research above, use your general knowledge of real entry-level interviews for it and say so.
+- Once you know the role, ask ONE interview question at a time — never several at once. Base questions on the real-process notes above for that role (or general knowledge if not covered).
+- Mix behavioral questions (teamwork, problem-solving, handling conflict) with technical ones relevant to the role.
+- After the student answers, give specific, honest feedback — 2-3 sentences on what worked and what didn't. Don't just say "good job"; be concrete. Then show a short example (3-5 sentences) of a stronger way to answer, so they can see the gap.
+- Keep your own writing concise and conversational — this is a chat, not a report.
+- If the student seems stuck, offer a small hint rather than giving away the answer.
+- After roughly 4-5 questions, or if the student says they're done, wrap up with a short overall summary: what they did well, what needs improvement, and one or two concrete things to practice — citing specific moments from the conversation, not generic advice.`;
 }
 
 // ---------------------------------------------------------------------------
@@ -56,7 +45,6 @@ function corsHeaders() {
 
 export default {
   async fetch(request, env) {
-    // Preflight
     if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders() });
     }
@@ -72,29 +60,20 @@ export default {
       return jsonResponse({ error: "Invalid JSON body" }, 400);
     }
 
-    // Expected body shape (this is the contract your frontend teammate needs):
+    // Expected body shape (unchanged from before — frontend needs no changes):
     // {
-    //   module: "discovery" | "interview",
+    //   module: "interview",
     //   message: "the user's latest message (string)",
-    //   history: [ { role: "user"|"assistant", content: "..." }, ... ]  // optional, prior turns
+    //   history: [ { role: "user"|"assistant", content: "..." }, ... ]  // optional
     // }
-    const { module, message, history = [] } = body;
+    const { message, history = [] } = body;
 
-    if (!module || !message) {
-      return jsonResponse({ error: "Missing 'module' or 'message'" }, 400);
-    }
-
-    const systemPrompt =
-      module === "discovery" ? buildDiscoveryPrompt() :
-      module === "interview" ? buildInterviewPrompt() :
-      null;
-
-    if (!systemPrompt) {
-      return jsonResponse({ error: "module must be 'discovery' or 'interview'" }, 400);
+    if (!message) {
+      return jsonResponse({ error: "Missing 'message'" }, 400);
     }
 
     const messages = [
-      { role: "system", content: systemPrompt },
+      { role: "system", content: buildInterviewPrompt() },
       ...history,
       { role: "user", content: message },
     ];
