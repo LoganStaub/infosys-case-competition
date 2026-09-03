@@ -1,38 +1,57 @@
 // ---------------------------------------------------------------------------
-// This file is what your teammate doing career/interview research will fill
-// in. The worker only reads what's exported here — the shape below is a
-// placeholder with 1 example entry per module so the format is clear.
+// Real interview-format research (originally written by Tanner for a
+// different, JSON-structured chatbot design; ported here for the
+// plain-conversation version of the interview prep bot).
 //
-// KEEP THIS RULE: only facts that live in this file should end up in the
-// chatbot's answers. That's what lets you say "here's where our data came
-// from" instead of "the AI made it up."
+// Each entry describes what actually happens in entry-level interviews for
+// that role, so the chatbot asks realistic questions instead of generic
+// ones. If a student asks to practice a role not listed here, the bot falls
+// back to general knowledge (see the system prompt in index.js).
 // ---------------------------------------------------------------------------
 
-export const CAREER_PATHS = [
-  {
-    title: "Business / Systems Analyst",
-    dayToDay: "Replace with real notes: what does this role actually do day-to-day?",
-    skills: ["Replace", "with", "real skills/tools"],
-    entryLevelExpectations: "What's a realistic bar for an intern/new grad?",
-    salaryRange: "e.g. $60k–$75k entry-level (CITE YOUR SOURCE HERE)",
-    growthTrajectory: "Typical next steps / promotion path",
-    strongCandidateTraits: "What makes someone stand out for this role?",
-    source: "e.g. BLS OOH, levels.fyi, informational interview with X — Aug 2026",
-  },
-  // Add at least 3 more career path objects here, same shape.
-];
-
-export const INTERVIEW_BANKS = [
-  {
-    role: "Business / Systems Analyst",
-    questions: [
-      {
-        type: "behavioral", // or "technical"
-        prompt: "Replace with a real question asked in entry-level interviews for this role.",
-        strongAnswerNotes: "What should a strong answer actually hit on?",
-      },
-    ],
-    source: "Where did these questions come from? (job postings, Glassdoor, alumni, etc.)",
-  },
-  // Add at least 3 more role objects here, same shape.
-];
+export const INTERVIEW_FORMAT_NOTES = {
+  "Data Analyst": (
+    "Real process: recruiter screen, then a hiring-manager conversation, " +
+    "then a SQL/Python technical test, then often a take-home case study " +
+    "or dataset walkthrough. Technical questions center on SQL (joins, " +
+    "window functions, CTEs), basic statistics (mean/median, correlation " +
+    "vs. causation, hypothesis testing), and explaining a finding to a " +
+    "non-technical stakeholder. Behavioral questions often ask about " +
+    "handling messy or incomplete data."
+  ),
+  "Business Analyst": (
+    "Real process centers on requirements-gathering ability: how you " +
+    "elicit and document what stakeholders actually need (interviews, " +
+    "workshops, user stories, process diagrams). Technical questions " +
+    "touch basic SQL, APIs, and Agile/Scrum vocabulary (user stories, " +
+    "backlog, sprint planning). Behavioral questions heavily feature " +
+    "stakeholder conflict - contradictory requirements, difficult " +
+    "stakeholders, scope disagreements."
+  ),
+  "Software Developer": (
+    "Real process often starts with an online coding assessment " +
+    "(data structures & algorithms) before any live interview, followed " +
+    "by one or more live coding rounds. Candidates are expected to talk " +
+    "through their reasoning out loud while solving a problem, not just " +
+    "arrive at the right answer silently. Also expect questions on git, " +
+    "debugging a specific bug you've hit, unit testing, and walking " +
+    "through a past project."
+  ),
+  "IT Project Manager": (
+    "Real process mixes STAR-format behavioral questions (a time you " +
+    "handled scope creep, a schedule slip, a difficult stakeholder) with " +
+    "methodology questions (Agile vs. Waterfall, how you estimate " +
+    "timelines, how you track and mitigate risk). Entry-level candidates " +
+    "are expected to know PM vocabulary and show structured thinking " +
+    "even with limited real-world project experience."
+  ),
+  "IT Consultant": (
+    "Real process often includes a case-study round: you're given a " +
+    "client scenario (e.g. a technology adoption decision) and graded on " +
+    "*how* you structure your thinking - clarify the problem, break it " +
+    "down logically (MECE-style), ask clarifying questions, then close " +
+    "with a clear recommendation backed by 2-3 specific reasons. It's " +
+    "process over 'right answer.' Conceptual familiarity with major tech " +
+    "categories (cloud platforms, ERP/CRM) is often expected."
+  ),
+};

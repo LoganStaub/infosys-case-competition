@@ -1,29 +1,50 @@
-{% extends 'shared/base.html' %}
-{% block head %}
-<link rel="stylesheet" href="/pages/home/index.css">
-{% endblock %}
-{% block content %}
-<section class="hero">
-  <div class="hero-content">
-    <h1>Where can you <span>go</span> with <span>IS</span>?</h1>
-    <p class="scroll-prompt">Scroll to Discover ↓</p>
-  </div>
-</section>
-<section class="split-screen" id="split-screen">
-  <div class="split left">
-    <div class="content-box">
-      <h2>Career Path Discovery</h2>
-      <p>Explore your potential and find the information systems career that aligns perfectly with your skills and passions.</p>
-      <a href="/page1" class="btn">Discover Your Path</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BYU Information Systems</title>
+  <link rel="stylesheet" href="../../shared/styles/base.css">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="header-logo">
+      BYU <span>Marriott School of Business</span> | Dept of Information Systems
+    </a>
+    <div class="header-actions">
     </div>
-  </div>
-  <div class="split right">
-    <div class="content-box">
-      <h2>AI Interview Prep</h2>
-      <p>Practice with our personalized AI chatbot interviewer to build confidence and ace your next big IS interview.</p>
-      <a href="/page2" class="btn">Start Practicing</a>
-    </div>
-  </div>
-</section>
-<script src="/pages/home/index.js"></script>
-{% endblock %}
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Where can you <span>go</span> with <span>IS</span>?</h1>
+        <p class="scroll-prompt">Scroll to Discover ↓</p>
+      </div>
+    </section>
+    <section class="split-screen" id="split-screen">
+      <div class="split left">
+        <div class="content-box">
+          <h2>Career Path Discovery</h2>
+          <p>Explore your potential and find the information systems career that aligns perfectly with your skills and passions.</p>
+          <a href="../page1-placeholder/page1.html" class="btn">Discover Your Path</a>
+        </div>
+      </div>
+      <div class="split right">
+        <div class="content-box">
+          <h2>AI Interview Prep</h2>
+          <p>Practice with our personalized AI chatbot interviewer to build confidence and ace your next big IS interview.</p>
+          <a href="../page2-placeholder/page2.html" class="btn">Start Practicing</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2026 Brigham Young University</p>
+    <p><a href="https://marriott.byu.edu/directory/departmental/#dept-5" target="_blank">Contact IS Professors</a></p>
+  </footer>
+  <script src="../../shared/scripts/utils.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
