@@ -158,6 +158,32 @@ function stopTimer() {
   }
 }
 
+function renderSummary(summary) {
+  const container = document.createElement("div");
+  container.className = "msg msg--summary";
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Interview complete";
+  container.appendChild(heading);
+
+  const sections = [
+    ["What went well", summary.went_well],
+    ["What needs improvement", summary.needs_improvement],
+    ["How to improve", summary.how_to_improve],
+  ];
+  sections.forEach(([label, text]) => {
+    const p = document.createElement("p");
+    const strong = document.createElement("strong");
+    strong.textContent = `${label}: `;
+    p.appendChild(strong);
+    p.appendChild(document.createTextNode(text || ""));
+    container.appendChild(p);
+  });
+
+  transcript.appendChild(container);
+  transcript.scrollTop = transcript.scrollHeight;
+}
+
 async function sendToCoach() {
   const pending = addMessage("assistant", "Thinking…", "msg--pending");
   stopTimer();
@@ -184,6 +210,13 @@ async function sendToCoach() {
         feedbackText += `\n\nStronger response: ${data.stronger_response}`;
       }
       addMessage("assistant", feedbackText, "msg--feedback");
+    }
+
+    if (data.concluded) {
+      renderSummary(data.summary || {});
+      timerBar.hidden = true;
+      composerForm.hidden = true;
+      return;
     }
 
     addMessage("assistant", data.next_question, "msg--question");

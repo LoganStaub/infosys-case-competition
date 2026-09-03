@@ -258,6 +258,29 @@
   color: #8A3F3A;
 }
 
+.msg--summary {
+  align-self: stretch;
+  max-width: 100%;
+  background: var(--teal-tint);
+  border: 1px solid var(--teal);
+}
+
+.msg--summary h3 {
+  margin: 0 0 8px;
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--teal-dark);
+}
+
+.msg--summary p {
+  margin: 0 0 10px;
+}
+
+.msg--summary p:last-child {
+  margin-bottom: 0;
+}
+
 .composer {
   display: flex;
   gap: 10px;

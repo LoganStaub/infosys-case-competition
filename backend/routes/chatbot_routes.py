@@ -63,6 +63,11 @@ INTERVIEW_FORMAT_NOTES = {
 
 DEFAULT_TIME_LIMIT_SECONDS = 120
 
+# Interview ends automatically after this many questions have been asked,
+# at which point the model gives a wrap-up summary instead of another
+# question (see build_conclusion_prompt).
+TOTAL_QUESTIONS = 7
+
 
 def build_resume_analysis_prompt() -> str:
     return (
@@ -125,6 +130,35 @@ def build_system_prompt(career: str) -> str:
     )
 
 
+def build_conclusion_prompt(career: str) -> str:
+    """Instructions for the final turn, once TOTAL_QUESTIONS have been
+    asked: give feedback on the last answer as usual, then wrap up with an
+    overall performance summary instead of another question."""
+    return (
+        f"You are wrapping up a mock interview for an entry-level "
+        f"'{career}' role. The student has just answered the final "
+        f"question. First give brief feedback on that last answer, then "
+        f"look back across the whole interview and provide an overall "
+        f"performance summary.\n\n"
+        "Respond with ONLY a JSON object, no other text, in this exact "
+        "shape:\n"
+        '{"feedback": string, "stronger_response": string, "summary": '
+        '{"went_well": string, "needs_improvement": string, '
+        '"how_to_improve": string}}\n\n'
+        "- feedback: 2-3 sentences on the student's last answer "
+        "specifically.\n"
+        "- stronger_response: a short example (3-5 sentences) showing a "
+        "stronger way to answer that last question.\n"
+        "- summary.went_well: 2-4 sentences on what the student did well "
+        "across the whole interview, citing specific answers.\n"
+        "- summary.needs_improvement: 2-4 sentences on what needs "
+        "improvement across the whole interview - specific, not generic.\n"
+        "- summary.how_to_improve: 2-4 sentences of concrete, actionable "
+        "advice for how the student can practice or adjust to address the "
+        "improvement areas just named."
+    )
+
+
 def _parse_structured_reply(raw_json: str) -> dict:
     """Defensively parse the model's JSON reply, filling in safe defaults
     for anything missing or malformed rather than crashing. Groq's JSON
@@ -163,6 +197,51 @@ def _parse_structured_reply(raw_json: str) -> dict:
         "stronger_response": stronger_response,
         "next_question": next_question,
         "time_limit_seconds": int(time_limit),
+        "concluded": False,
+    }
+
+
+def _parse_conclusion_reply(raw_json: str) -> dict:
+    """Defensively parse the model's final-turn JSON reply, same rationale
+    as _parse_structured_reply."""
+    try:
+        data = json.loads(raw_json)
+    except (json.JSONDecodeError, TypeError):
+        logger.warning("Non-JSON reply from model: %r", raw_json)
+        data = {}
+
+    if not isinstance(data, dict):
+        data = {}
+
+    feedback = data.get("feedback")
+    if not isinstance(feedback, str) or not feedback.strip():
+        feedback = None
+
+    stronger_response = data.get("stronger_response")
+    if not isinstance(stronger_response, str):
+        stronger_response = None
+
+    summary = data.get("summary")
+    if not isinstance(summary, dict):
+        summary = {}
+
+    fallback_text = (
+        "Sorry, something went wrong generating this part of the summary."
+    )
+
+    def _summary_field(key: str) -> str:
+        value = summary.get(key)
+        return value if isinstance(value, str) and value.strip() else fallback_text
+
+    return {
+        "feedback": feedback,
+        "stronger_response": stronger_response,
+        "concluded": True,
+        "summary": {
+            "went_well": _summary_field("went_well"),
+            "needs_improvement": _summary_field("needs_improvement"),
+            "how_to_improve": _summary_field("how_to_improve"),
+        },
     }
 
 
@@ -224,7 +303,11 @@ def chat():
         return jsonify({"error": "No career specified."}), 400
     history = data.get("history", [])
 
-    messages = [{"role": "system", "content": build_system_prompt(career)}]
+    questions_asked = sum(1 for m in history if m.get("role") == "assistant")
+    is_final_turn = questions_asked >= TOTAL_QUESTIONS
+
+    prompt = build_conclusion_prompt(career) if is_final_turn else build_system_prompt(career)
+    messages = [{"role": "system", "content": prompt}]
     messages.extend(history)
 
     try:
@@ -232,4 +315,6 @@ def chat():
     except Exception as exc:
         return jsonify({"error": str(exc)}), 500
 
+    if is_final_turn:
+        return jsonify(_parse_conclusion_reply(raw))
     return jsonify(_parse_structured_reply(raw))
