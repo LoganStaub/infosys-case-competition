@@ -3,22 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Case Competition{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='shared/styles/base.css') }}">
-  {% block extra_css %}{% endblock %}
+  <title>BYU Information Systems</title>
+  <link rel="stylesheet" href="/shared/styles/base.css">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  {% block head %}{% endblock %}
 </head>
 <body>
-  <nav class="site-nav">
-    <a href="/">Home</a>
-    <a href="/page1">Page 1</a>
-    <a href="/page2">Page 2</a>
-  </nav>
-
+  <header>
+    <a href="/" class="header-logo">
+      BYU <span>Marriott School of Business</span> | Dept of Information Systems
+    </a>
+    <div class="header-actions">
+      {% block header_extra %}{% endblock %}
+    </div>
+  </header>
   <main>
     {% block content %}{% endblock %}
   </main>
-
-  <script src="{{ url_for('static', filename='shared/scripts/utils.js') }}"></script>
-  {% block extra_js %}{% endblock %}
+  <footer>
+    <p>&copy; 2026 Brigham Young University</p>
+    <p><a href="https://marriott.byu.edu/directory/departmental/#dept-5" target="_blank">Contact IS Professors</a></p>
+  </footer>
+  <script src="/shared/scripts/utils.js"></script>
 </body>
 </html>

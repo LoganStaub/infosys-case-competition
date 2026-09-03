@@ -1,0 +1,29 @@
+{% extends 'shared/base.html' %}
+{% block head %}
+<link rel="stylesheet" href="/pages/home/index.css">
+{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-content">
+    <h1>Where can you <span>go</span> with <span>IS</span>?</h1>
+    <p class="scroll-prompt">Scroll to Discover ↓</p>
+  </div>
+</section>
+<section class="split-screen" id="split-screen">
+  <div class="split left">
+    <div class="content-box">
+      <h2>Career Path Discovery</h2>
+      <p>Explore your potential and find the information systems career that aligns perfectly with your skills and passions.</p>
+      <a href="/page1" class="btn">Discover Your Path</a>
+    </div>
+  </div>
+  <div class="split right">
+    <div class="content-box">
+      <h2>AI Interview Prep</h2>
+      <p>Practice with our personalized AI chatbot interviewer to build confidence and ace your next big IS interview.</p>
+      <a href="/page2" class="btn">Start Practicing</a>
+    </div>
+  </div>
+</section>
+<script src="/pages/home/index.js"></script>
+{% endblock %}

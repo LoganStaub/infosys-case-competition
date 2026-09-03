@@ -1,12 +1,26 @@
-{% extends "shared/base.html" %}
-{% block title %}Page 2{% endblock %}
-{% block extra_css %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='pages/page2-placeholder/page2.css') }}">
+{% extends 'shared/base.html' %}
+{% block header_extra %}
+<a href="/" class="back-btn">← Back to Home</a>
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="/pages/page2-placeholder/page2.css">
 {% endblock %}
 {% block content %}
-  <h1>Page 2 (placeholder)</h1>
-  <p>Build this page's feature here.</p>
-{% endblock %}
-{% block extra_js %}
-  <script src="{{ url_for('static', filename='pages/page2-placeholder/page2.js') }}"></script>
+<div class="page-container">
+  <div class="header-banner">
+    <h1>Interview Preparation: <span>Start chatting</span> with your <span>personal interviewer!</span></h1>
+  </div>
+  <div class="chat-module">
+    <div class="chat-window">
+      <div class="chat-messages" id="chat-messages">
+        <div class="message system">Hello! I am your AI interviewer. Ready to begin?</div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" id="chat-input" placeholder="Type your response here... (Press Enter to send)">
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/pages/page2-placeholder/page2.js"></script>
 {% endblock %}

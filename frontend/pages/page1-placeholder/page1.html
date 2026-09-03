@@ -1,12 +1,14 @@
-{% extends "shared/base.html" %}
-{% block title %}Page 1{% endblock %}
-{% block extra_css %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='pages/page1-placeholder/page1.css') }}">
+{% extends 'shared/base.html' %}
+{% block head %}
+<link rel="stylesheet" href="/pages/page1-placeholder/page1.css">
 {% endblock %}
 {% block content %}
-  <h1>Page 1 (placeholder)</h1>
-  <p>Build this page's feature here.</p>
-{% endblock %}
-{% block extra_js %}
-  <script src="{{ url_for('static', filename='pages/page1-placeholder/page1.js') }}"></script>
+<div class="page-container">
+  <div class="header-banner">
+    <h1>What career is <span>best</span> for me?</h1>
+  </div>
+  <div class="module-placeholder">
+    <p>[ Career Path Discovery Module Placeholder ]</p>
+  </div>
+</div>
 {% endblock %}
