@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <!-- Shared site header and brand link. -->
   <header>
     <a href="index.html" class="header-logo">
       BYU <span>Marriott School of Business</span> | Dept of Information Systems
@@ -17,33 +18,37 @@
     </div>
   </header>
   <main>
+    <!-- Full-screen introduction; index.js adds the subtle scroll fade. -->
     <section class="hero">
       <div class="hero-content">
         <h1>Where can you <span>go</span> with <span>IS</span>?</h1>
         <p class="scroll-prompt">Scroll to Discover ↓</p>
       </div>
     </section>
+    <!-- Primary navigation into the application's two learning modules. -->
     <section class="split-screen" id="split-screen">
       <div class="split left">
         <div class="content-box">
           <h2>Career Path Discovery</h2>
           <p>Explore your potential and find the information systems career that aligns perfectly with your skills and passions.</p>
-          <a href="../page1-placeholder/page1.html" class="btn">Discover Your Path</a>
+          <a href="../discovery/discovery.html" class="btn">Discover Your Path</a>
         </div>
       </div>
       <div class="split right">
         <div class="content-box">
           <h2>AI Interview Prep</h2>
           <p>Practice with our personalized AI chatbot interviewer to build confidence and ace your next big IS interview.</p>
-          <a href="../page2-placeholder/page2.html" class="btn">Start Practicing</a>
+          <a href="../interview/interview.html" class="btn">Start Practicing</a>
         </div>
       </div>
     </section>
   </main>
+  <!-- Shared institutional footer used across all three standalone pages. -->
   <footer>
     <p>&copy; 2026 Brigham Young University</p>
     <p><a href="https://marriott.byu.edu/directory/departmental/#dept-5" target="_blank">Contact IS Professors</a></p>
   </footer>
+  <!-- Shared behavior loads first; page-specific behavior loads second. -->
   <script src="../../shared/scripts/utils.js"></script>
   <script src="index.js"></script>
 </body>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BYU Information Systems</title>
+  <link rel="stylesheet" href="../../shared/styles/base.css">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="interview.css">
+</head>
+<body>
+  <!-- Shared brand header and explicit return navigation. -->
+  <header>
+    <a href="../home/index.html" class="header-logo">
+      BYU <span>Marriott School of Business</span> | Dept of Information Systems
+    </a>
+    <div class="header-actions">
+      <a href="../home/index.html" class="back-btn">← Back to Home</a>
+    </div>
+  </header>
+  <main>
+    <div class="page-container">
+      <!-- Explains the five-question interview practice experience. -->
+      <div class="header-banner">
+        <h1>Interview Preparation: <span>Start chatting</span> with your <span>personal interviewer!</span></h1>
+        <p>Choose a role and practice five realistic questions with specific feedback.</p>
+      </div>
+      <!-- Session configuration is locked while an interview is active. -->
+      <section class="session-setup" aria-labelledby="setup-title">
+        <h2 id="setup-title">Set up your mock interview</h2>
+        <div class="setup-fields">
+          <label for="career-select">Career path
+            <select id="career-select">
+              <option value="">Choose a career…</option>
+              <option>Software Developer</option>
+              <option>Business Analyst</option>
+              <option>Data Analyst</option>
+              <option>Cybersecurity Analyst</option>
+              <option>IT Project Manager</option>
+              <option>UX Designer / Product Manager</option>
+              <option>ERP / Systems Consultant</option>
+              <option>Cloud / Infrastructure Engineer</option>
+            </select>
+          </label>
+          <label for="question-mode">Question focus
+            <select id="question-mode">
+              <option value="mixed">Mixed behavioral and technical</option>
+              <option value="behavioral">Behavioral</option>
+              <option value="technical">Technical</option>
+            </select>
+          </label>
+        </div>
+        <div class="setup-actions">
+          <button type="button" id="start-btn">Start interview</button>
+          <button type="button" id="reset-btn" class="secondary-action" disabled>Reset session</button>
+        </div>
+        <p class="setup-status" id="setup-status" role="status" aria-live="polite"></p>
+      </section>
+      <!-- Live region containing progress, conversation history, and response input. -->
+      <div class="chat-module">
+        <div class="chat-toolbar">
+          <strong id="session-label">No interview started</strong>
+          <span id="question-progress">Question 0 of 5</span>
+        </div>
+        <div class="chat-window">
+          <div class="chat-messages" id="chat-messages">
+            <div class="message system">Choose a career path above to begin your mock interview.</div>
+          </div>
+          <div class="chat-input-container">
+            <label class="sr-only" for="chat-input">Your interview response</label>
+            <textarea id="chat-input" rows="3" maxlength="3000" placeholder="Start an interview above to unlock responses." disabled></textarea>
+            <button id="send-btn" disabled>Send response</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- Shared institutional footer. -->
+  <footer>
+    <p>&copy; 2026 Brigham Young University</p>
+    <p><a href="https://marriott.byu.edu/directory/departmental/#dept-5" target="_blank">Contact IS Professors</a></p>
+  </footer>
+  <!-- Shared utilities load before interview session behavior. -->
+  <script src="../../shared/scripts/utils.js"></script>
+  <script src="interview.js"></script>
+</body>
+</html>

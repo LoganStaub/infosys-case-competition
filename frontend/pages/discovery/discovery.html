@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BYU Information Systems</title>
+  <link rel="stylesheet" href="../../shared/styles/base.css">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="discovery.css">
+</head>
+<body>
+  <!-- Site header includes both the brand link and an explicit route home. -->
+  <header>
+    <a href="../home/index.html" class="header-logo">
+      BYU <span>Marriott School of Business</span> | Dept of Information Systems
+    </a>
+    <div class="header-actions">
+      <a href="../home/index.html" class="back-btn">← Back to Home</a>
+    </div>
+  </header>
+  <main>
+    <div class="page-container">
+      <!-- Introduces the purpose of the Career Discovery module. -->
+      <div class="header-banner">
+        <h1>What career is <span>best</span> for me?</h1>
+        <p>Explore where an Information Systems degree can take you.</p>
+      </div>
+      <!-- Optional exploration tools: random discovery and scored assessment. -->
+      <div class="discovery-tools">
+        <button type="button" class="primary-btn" id="random-career-btn">Pick a random career</button>
+        <button type="button" class="secondary-btn" id="toggle-assessment-btn" aria-expanded="false" aria-controls="career-assessment">Find my best fit</button>
+      </div>
+      <p class="tool-result" id="random-result" role="status" aria-live="polite"></p>
+      <!-- Each button maps to a matching profile key in discovery.js. -->
+      <section class="career-grid" aria-label="Information Systems career paths">
+        <button type="button" class="career-card" data-career="developer">
+          <h2>Software / Application Developer</h2>
+        </button>
+        <button type="button" class="career-card" data-career="analyst">
+          <h2>Business / Systems Analyst</h2>
+        </button>
+        <button type="button" class="career-card" data-career="data">
+          <h2>Data Analyst or Data Scientist</h2>
+        </button>
+        <button type="button" class="career-card" data-career="cybersecurity">
+          <h2>Cybersecurity Analyst</h2>
+        </button>
+        <button type="button" class="career-card" data-career="project-manager">
+          <h2>IT Project Manager</h2>
+        </button>
+        <button type="button" class="career-card" data-career="product">
+          <h2>UX Designer / Product Manager</h2>
+        </button>
+        <button type="button" class="career-card" data-career="consultant">
+          <h2>ERP / Systems Consultant</h2>
+          <p>Including SAP and Salesforce</p>
+        </button>
+        <button type="button" class="career-card" data-career="cloud">
+          <h2>Cloud / Infrastructure Engineer</h2>
+        </button>
+      </section>
+      <!-- Populated dynamically when a career card is selected. -->
+      <section class="career-details" id="career-details" aria-live="polite" tabindex="-1" hidden>
+        <button type="button" class="details-close" id="details-close" aria-label="Close career details">×</button>
+        <div id="career-details-content"></div>
+      </section>
+      <!-- Five-question assessment; radio values map answers to career keys. -->
+      <section class="assessment-panel" id="career-assessment" hidden>
+        <div class="assessment-heading">
+          <p class="eyebrow">Career pathway assessment</p>
+          <h2>What kind of work sounds most like you?</h2>
+          <p>Choose one answer per question. This is a starting point, not a legally binding career prophecy.</p>
+        </div>
+        <form id="career-assessment-form">
+          <fieldset>
+            <legend>1. Which challenge sounds most satisfying?</legend>
+            <label><input type="radio" name="q1" value="developer" required> Building a useful app from scratch</label>
+            <label><input type="radio" name="q1" value="analyst,consultant"> Improving how a business process works</label>
+            <label><input type="radio" name="q1" value="data"> Finding a story hidden in data</label>
+            <label><input type="radio" name="q1" value="cybersecurity"> Finding and fixing a security weakness</label>
+          </fieldset>
+          <fieldset>
+            <legend>2. What role would you naturally take on in a team?</legend>
+            <label><input type="radio" name="q2" value="project-manager" required> Organizing the plan and keeping everyone moving</label>
+            <label><input type="radio" name="q2" value="product"> Representing users and shaping the experience</label>
+            <label><input type="radio" name="q2" value="cloud"> Making sure the technical environment works reliably</label>
+            <label><input type="radio" name="q2" value="consultant,analyst"> Connecting business needs with the right system</label>
+          </fieldset>
+          <fieldset>
+            <legend>3. Which final product would make you proudest?</legend>
+            <label><input type="radio" name="q3" value="developer" required> Clean, working software</label>
+            <label><input type="radio" name="q3" value="data"> A clear dashboard or predictive model</label>
+            <label><input type="radio" name="q3" value="project-manager,product"> A successful launch that solves the right problem</label>
+            <label><input type="radio" name="q3" value="cybersecurity,cloud"> A secure, dependable technology platform</label>
+          </fieldset>
+          <fieldset>
+            <legend>4. Which strength describes you best?</legend>
+            <label><input type="radio" name="q4" value="analyst,consultant" required> Asking questions and clarifying requirements</label>
+            <label><input type="radio" name="q4" value="product"> Empathy, creativity, and communication</label>
+            <label><input type="radio" name="q4" value="data,cybersecurity"> Detail-oriented investigation</label>
+            <label><input type="radio" name="q4" value="project-manager"> Coordination and leadership</label>
+          </fieldset>
+          <fieldset>
+            <legend>5. Where would you most enjoy spending your time?</legend>
+            <label><input type="radio" name="q5" value="developer,product" required> Collaborating with a product team</label>
+            <label><input type="radio" name="q5" value="analyst,project-manager,consultant"> Working with clients and business leaders</label>
+            <label><input type="radio" name="q5" value="data,cybersecurity"> Researching patterns, risks, and evidence</label>
+            <label><input type="radio" name="q5" value="cloud,developer"> Building and maintaining technical systems</label>
+          </fieldset>
+          <div class="assessment-actions">
+            <button type="submit" class="primary-btn">Show my result</button>
+            <button type="reset" class="secondary-btn">Reset survey</button>
+          </div>
+        </form>
+        <div class="assessment-result" id="assessment-result" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      </section>
+    </div>
+  </main>
+  <!-- Shared institutional footer. -->
+  <footer>
+    <p>&copy; 2026 Brigham Young University</p>
+    <p><a href="https://marriott.byu.edu/directory/departmental/#dept-5" target="_blank">Contact IS Professors</a></p>
+  </footer>
+  <!-- Shared utilities load before page-specific discovery behavior. -->
+  <script src="../../shared/scripts/utils.js"></script>
+  <script src="discovery.js"></script>
+</body>
+</html>

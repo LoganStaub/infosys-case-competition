@@ -1,0 +1,72 @@
+/* Page-level spacing and introductory typography. */
+.page-container { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; text-align: center; width: 100%; box-sizing: border-box; }
+.header-banner { margin-bottom: 2.5rem; }
+.header-banner h1 { font-size: 3.5rem; color: var(--byu-navy); font-weight: 300; margin: 0 0 0.75rem; }
+.header-banner h1 span { font-weight: 700; color: var(--byu-royal); }
+.header-banner p { margin: 0; color: #4a5568; font-size: 1.15rem; }
+
+/* Shared action styling for the randomizer, assessment, and reset controls. */
+.discovery-tools { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.85rem; margin-bottom: 0.75rem; }
+.primary-btn, .secondary-btn { padding: 0.85rem 1.35rem; border: 2px solid var(--byu-royal); border-radius: 7px; font: inherit; font-weight: 700; cursor: pointer; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+.primary-btn { background: var(--byu-royal); color: var(--byu-white); }
+.secondary-btn { background: transparent; color: var(--byu-navy); }
+.primary-btn:hover, .secondary-btn:hover { background: var(--byu-navy); border-color: var(--byu-navy); color: var(--byu-white); transform: translateY(-2px); }
+.primary-btn:focus-visible, .secondary-btn:focus-visible, .career-card:focus-visible, .assessment-panel input:focus-visible + span { outline: 3px solid #ffbf3f; outline-offset: 3px; }
+.tool-result { min-height: 1.5rem; margin: 0 0 1rem; color: var(--byu-navy); font-weight: 700; }
+
+/* Four-column career grid collapses at the tablet and phone breakpoints below. */
+.career-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; text-align: left; }
+.career-card { position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 150px; padding: 1.75rem; overflow: hidden; background: #d9e2ee; border: 1px solid #c4d0df; border-top: 5px solid var(--byu-royal); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,34,85,0.11); font: inherit; text-align: left; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+.career-card:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(0,34,85,0.15); }
+.career-card.is-selected { background: var(--byu-navy); border-color: var(--byu-navy); transform: translateY(-5px); box-shadow: 0 0 0 4px rgba(0,87,184,0.24), 0 14px 30px rgba(0,34,85,0.2); }
+.career-card h2 { position: relative; margin: 0; color: var(--byu-navy); font-size: 1.25rem; line-height: 1.35; }
+.career-card p { position: relative; margin: 0.65rem 0 0; color: #596579; font-size: 0.95rem; line-height: 1.4; }
+.career-card.is-selected h2, .career-card.is-selected p { color: var(--byu-white); }
+
+/* Dynamic career profile revealed beneath the selected card. */
+.career-details { position: relative; margin-top: 1.5rem; padding: 2.5rem; background: var(--byu-navy); color: var(--byu-white); border-radius: 16px; box-shadow: 0 14px 36px rgba(0,34,85,0.24); text-align: left; }
+.career-details h2 { margin: 0 3rem 0.5rem 0; font-size: 2rem; }
+.career-details .details-intro { margin: 0 3rem 2rem 0; color: #d9e2ee; line-height: 1.6; }
+.details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.detail-block { padding: 1.25rem; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; }
+.detail-block h3 { margin: 0 0 0.65rem; color: #8fc5ff; font-size: 1.05rem; }
+.detail-block p { margin: 0; line-height: 1.6; }
+.detail-block.salary { grid-column: 1 / -1; }
+.detail-block a { color: var(--byu-white); font-weight: 700; }
+.details-close { position: absolute; top: 1rem; right: 1rem; width: 2.5rem; height: 2.5rem; padding: 0; background: transparent; color: var(--byu-white); border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; font-size: 1.7rem; line-height: 1; cursor: pointer; }
+.details-close:hover { background: var(--byu-white); color: var(--byu-navy); }
+
+/* Hidden-by-default assessment and its grouped radio-button questions. */
+.assessment-panel { margin-top: 3rem; padding: 2.5rem; background: var(--byu-white); border-radius: 16px; box-shadow: 0 12px 35px rgba(0,34,85,0.12); text-align: left; }
+.assessment-heading { text-align: center; margin-bottom: 2rem; }
+.assessment-heading .eyebrow { margin: 0 0 0.4rem; color: var(--byu-royal); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.assessment-heading h2 { margin: 0 0 0.65rem; color: var(--byu-navy); font-size: 2rem; }
+.assessment-heading > p:last-child { margin: 0; color: #596579; }
+.assessment-panel form { display: grid; gap: 1.25rem; }
+.assessment-panel fieldset { display: grid; gap: 0.65rem; margin: 0; padding: 1.25rem; border: 1px solid #cbd5e1; border-radius: 10px; }
+.assessment-panel legend { padding: 0 0.35rem; color: var(--byu-navy); font-weight: 700; }
+.assessment-panel label { padding: 0.7rem 0.85rem; background: #eef2f7; border-radius: 7px; cursor: pointer; line-height: 1.4; }
+.assessment-panel label:hover { background: #dce6f2; }
+.assessment-panel input { margin-right: 0.6rem; accent-color: var(--byu-royal); }
+.assessment-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.85rem; margin-top: 0.5rem; }
+.assessment-result { margin-top: 1.5rem; padding: 1.5rem; background: #e4edf7; border-left: 5px solid var(--byu-royal); border-radius: 8px; text-align: center; }
+.assessment-result h3 { margin: 0 0 0.5rem; color: var(--byu-navy); font-size: 1.5rem; }
+.assessment-result p { margin: 0; color: #334155; line-height: 1.5; }
+
+/* Tablet layout: two career cards per row. */
+@media (max-width: 900px) {
+  .career-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Phone layout: one card per row and full-width assessment actions. */
+@media (max-width: 560px) {
+  .page-container { padding: 2.5rem 1rem; }
+  .header-banner h1 { font-size: 2.4rem; }
+  .career-grid { grid-template-columns: 1fr; }
+  .career-card { min-height: 120px; }
+  .career-details { padding: 2rem 1rem 1rem; }
+  .details-grid { grid-template-columns: 1fr; }
+  .detail-block.salary { grid-column: auto; }
+  .assessment-panel { padding: 1.5rem 1rem; }
+  .assessment-actions button { width: 100%; }
+}

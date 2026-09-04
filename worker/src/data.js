@@ -3,10 +3,10 @@
 // different, JSON-structured chatbot design; ported here for the
 // plain-conversation version of the interview prep bot).
 //
-// Each entry describes what actually happens in entry-level interviews for
-// that role, so the chatbot asks realistic questions instead of generic
-// ones. If a student asks to practice a role not listed here, the bot falls
-// back to general knowledge (see the system prompt in index.js).
+// Each entry describes what happens in entry-level interviews for that role,
+// so the chatbot asks realistic questions instead of generic ones. Keys must
+// exactly match the role options in frontend/pages/interview/interview.html;
+// the worker rejects unknown roles instead of silently changing behavior.
 // ---------------------------------------------------------------------------
 
 export const INTERVIEW_FORMAT_NOTES = {
@@ -45,7 +45,7 @@ export const INTERVIEW_FORMAT_NOTES = {
     "are expected to know PM vocabulary and show structured thinking " +
     "even with limited real-world project experience."
   ),
-  "IT Consultant": (
+  "ERP / Systems Consultant": (
     "Real process often includes a case-study round: you're given a " +
     "client scenario (e.g. a technology adoption decision) and graded on " +
     "*how* you structure your thinking - clarify the problem, break it " +
@@ -53,5 +53,29 @@ export const INTERVIEW_FORMAT_NOTES = {
     "with a clear recommendation backed by 2-3 specific reasons. It's " +
     "process over 'right answer.' Conceptual familiarity with major tech " +
     "categories (cloud platforms, ERP/CRM) is often expected."
+  ),
+  "Cybersecurity Analyst": (
+    "Real process commonly includes security-fundamentals questions, a " +
+    "scenario or log-analysis exercise, and behavioral questions about " +
+    "handling incidents and communicating risk. Entry-level candidates " +
+    "should understand networking, authentication and authorization, " +
+    "common vulnerabilities, least privilege, incident-response steps, " +
+    "and how to investigate without jumping to conclusions."
+  ),
+  "UX Designer / Product Manager": (
+    "Real process often includes a portfolio or product-case walkthrough. " +
+    "Candidates may be asked to critique an experience, define a user " +
+    "problem, prioritize competing features, choose success metrics, or " +
+    "explain how research changed a decision. Strong answers balance user " +
+    "needs, technical constraints, accessibility, evidence, and business " +
+    "goals instead of treating personal preference as research."
+  ),
+  "Cloud / Infrastructure Engineer": (
+    "Real process mixes troubleshooting scenarios with fundamentals in " +
+    "Linux, networking, identity, cloud services, automation, reliability, " +
+    "and cost. Entry-level candidates may explain DNS and HTTP, diagnose a " +
+    "service that cannot connect, compare scaling approaches, describe an " +
+    "infrastructure project, or discuss how they would monitor and secure " +
+    "a small cloud deployment."
   ),
 };

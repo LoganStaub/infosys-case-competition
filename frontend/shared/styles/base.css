@@ -1,11 +1,16 @@
+/* Shared BYU-inspired color tokens used by every page. */
 :root { --byu-navy: #002255; --byu-royal: #0057B8; --byu-silver: #A7A8AA; --byu-white: #FFFFFF; --byu-light-gray: #F4F4F4; }
+/* The flex column keeps the footer at the bottom on short pages. */
 body { font-family: 'Public Sans', sans-serif; margin: 0; padding: 0; background-color: var(--byu-light-gray); display: flex; flex-direction: column; min-height: 100vh; }
+/* Sticky navigation remains available while long modules are scrolled. */
 header { background: var(--byu-navy); color: var(--byu-white); padding: 1.5rem 2rem; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 .header-logo { font-size: 1.3rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; color: var(--byu-white); text-decoration: none; }
 .header-logo span { color: var(--byu-silver); font-weight: 300; }
 main { flex-grow: 1; }
+/* Shared footer and contact-link treatment. */
 footer { background: var(--byu-navy); color: var(--byu-white); text-align: center; padding: 2.5rem; margin-top: auto; border-top: 6px solid var(--byu-royal); }
 footer a { color: var(--byu-silver); text-decoration: none; font-weight: bold; }
 footer a:hover { color: var(--byu-white); text-decoration: underline; }
+/* Reusable return-navigation button shown on feature pages. */
 .back-btn { background: var(--byu-silver); color: var(--byu-navy); padding: 0.6rem 1.2rem; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 0.95rem; transition: background 0.3s; }
 .back-btn:hover { background: var(--byu-white); }
